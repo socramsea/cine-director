@@ -1,0 +1,75 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Skill structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate SKILL.md and references
+        run: node scripts/validate-skill.mjs
+
+  install:
+    name: Real install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Installs this checkout through the same CLI the README tells users to
+      # run. This is what catches a frontmatter change that parses locally but
+      # is rejected by the installer — the failure that made the skill
+      # uninstallable for everyone before it was caught.
+      - name: Install through the skills CLI
+        run: |
+          mkdir -p /tmp/install-test
+          cd /tmp/install-test
+          npx -y skills@latest add "file://$GITHUB_WORKSPACE" --all 2>&1 | tee out.txt
+          if grep -q "No valid skills found" out.txt; then
+            echo "::error::The skills CLI rejected SKILL.md — users cannot install this."
+            exit 1
+          fi
+
+      - name: Verify the installed skill is complete
+        run: |
+          cd /tmp/install-test
+          root=$(find . -type d -name cine-director | head -n1)
+          if [ -z "$root" ]; then
+            echo "::error::Installed skill directory not found."
+            exit 1
+          fi
+          missing=0
+          for f in \
+            SKILL.md \
+            references/pipeline.md \
+            references/character-bible.md \
+            references/shots/master-performance.md \
+            references/shots/close-up-lipsync.md \
+            references/shots/sequence-shot.md \
+            references/shots/property-showcase.md \
+            template/decupage-template.md
+          do
+            if [ ! -f "$root/$f" ]; then
+              echo "::error::Missing after install: $f"
+              missing=1
+            fi
+          done
+          exit $missing

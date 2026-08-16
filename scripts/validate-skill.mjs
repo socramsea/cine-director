@@ -204,6 +204,11 @@ const mdFiles = existsSync(ROOT) ? walk(ROOT) : [];
 const PATH_IN_BACKTICKS = /`([A-Za-z0-9._\-/]+\.md)`/g;
 const MD_LINK = /\[[^\]]*\]\((\.{0,2}\/?[A-Za-z0-9._\-/]+\.md)\)/g;
 
+// Only strings with a directory component are treated as path references. A
+// bare "sequence-shot.md" in prose — a changelog entry naming a renamed file,
+// say — is a name, not a link, and must not be resolved against the filesystem.
+const isPathReference = (ref) => ref.includes('/');
+
 let refsChecked = 0;
 for (const file of mdFiles) {
   const text = readFileSync(file, 'utf8');
@@ -213,7 +218,7 @@ for (const file of mdFiles) {
   for (const m of text.matchAll(PATH_IN_BACKTICKS)) candidates.add(m[1]);
   for (const m of text.matchAll(MD_LINK)) candidates.add(m[1]);
 
-  for (const ref of candidates) {
+  for (const ref of [...candidates].filter(isPathReference)) {
     refsChecked++;
     const tries = [resolve(here, ref), resolve(ROOT, ref.replace(/^\.\//, ''))];
     if (!tries.some((p) => existsSync(p) && statSync(p).isFile())) {
