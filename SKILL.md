@@ -1,86 +1,110 @@
 ---
 name: cine-director
-description: Turn Claude Code into a film director for generative AI video (music videos, brand films, real-estate showcases, narrative clips). Produces a complete cinematic pre-production package — shot-by-shot decupagem, per-shot generation prompts, character consistency bible, ffmpeg audio cut plan, and API cost estimate — at zero cost (dry-run mode, default). Optional execution layer generates footage via the user's own API keys (image-to-video + lipsync). Use whenever the user wants to plan, storyboard, direct, or produce an AI-generated video, mentions "decupagem", "clipe", "music video", "vídeo gerado por IA", lipsync, character consistency across shots, or asks how much a generative video would cost before generating. Transforma o Claude Code em diretor de cinema para vídeo generativo: decupagem completa plano a plano, prompts de geração, bíblia de personagem, plano de cortes de áudio ffmpeg e estimativa de custo — tudo em modo dry-run gratuito por padrão. Camada de execução opcional gera o footage com as chaves de API do próprio usuário.
+description: >-
+  Film-director capability for generative AI video — music videos, brand films,
+  real-estate showcases, narrative clips. Produces a complete cinematic
+  pre-production package (shot-by-shot decupage, per-shot generation prompts,
+  character consistency bible, ffmpeg audio-cut plan, and an API cost estimate)
+  at zero cost in dry-run mode, which is the default. An optional execution
+  layer generates the footage with the user's own API keys, via image-to-video
+  plus lipsync.
+when_to_use: >-
+  Use when the user wants to plan, storyboard, direct, or produce an
+  AI-generated video; asks what a generative video would cost before generating
+  it; or needs character consistency across shots, lipsync, or an audio-cut
+  plan. Also triggers on Portuguese requests — decupagem, clipe musical, video
+  gerado por IA, bíblia de personagem.
+license: Apache-2.0
 ---
 
-# cine-director: direção cinematográfica para vídeo generativo
+# cine-director: cinematic direction for generative video
 
-Uma capacidade de **pré-produção cinematográfica** para vídeo gerado por IA.
-O foco não é "gerar vídeo" — é **dirigir**: transformar uma música, um produto
-ou uma ideia numa decupagem profissional que qualquer motor generativo
-(image-to-video + lipsync) consegue executar de forma consistente.
+A **cinematic pre-production** capability for AI-generated video. The goal is
+not to "generate video" — it is to **direct**: to turn a song, a product, or an
+idea into a professional shot breakdown that any generative engine
+(image-to-video + lipsync) can execute consistently.
 
-Pipeline de referência validado em produção real (clipe musical completo):
-imagem-referência → image-to-video → cortes de áudio ffmpeg → lipsync por plano
-→ montagem final. Os cards documentam o que funcionou e o que quebrou.
+Reference pipeline validated in real production (a complete music video):
+reference image → image-to-video → ffmpeg audio cuts → per-shot lipsync →
+final edit. The shot cards document what worked and what broke.
 
-## Regra fundacional: REGRA PENDENTE
+> **Terminology.** *Decupage* (PT-BR: *decupagem*) is the shot-by-shot
+> breakdown of a scene — the numbered table of every shot with its duration,
+> framing, action, and camera. It is this skill's central artifact.
 
-Nenhum parâmetro, coeficiente ou afirmação técnica entra num entregável sem
-fonte declarada. Se um valor não foi validado em produção, o output marca
-`PENDENTE` explicitamente — nunca um número plausível inventado. Isso vale
-para o agente usando este skill: **não estime custos de API sem consultar a
-tabela de preços atual do provedor; não afirme limites de duração/resolução
-de modelos sem verificar a documentação vigente.**
+## Founding rule: the PENDING rule
 
-## Dois modos — dry-run é o padrão
+No parameter, coefficient, or technical claim enters a deliverable without a
+declared source. If a value has not been validated in production, the output
+marks it `PENDING` explicitly — never a plausible invented number. This binds
+the agent using this skill: **do not estimate API costs without consulting the
+provider's current price table; do not assert model duration or resolution
+limits without checking current documentation.**
 
-### 1. Dry-run (padrão, custo zero)
+When you cannot source a value, write `PENDING [what to fill in]`. That is a
+correct answer, not a failure.
 
-Entrega o pacote completo de pré-produção SEM gastar um crédito de API:
+## Two modes — dry-run is the default
 
-- **Decupagem** plano a plano (tabela: nº, duração, enquadramento, ação,
-  câmera, transição) — usar `template/decupagem-template.md`
-- **Prompt de geração** pronto para cada plano (image-to-video), com a
-  bíblia de personagem embutida para consistência
-- **Bíblia de personagem** — ler `references/character-bible.md`
-- **Plano de cortes de áudio** — comandos ffmpeg prontos, um segmento por
-  plano com lipsync, timestamps calculados a partir da letra/beat
-- **Estimativa de custo** — segundos gerados × preço vigente do provedor
-  (verificar preço atual antes de estimar; nunca usar valor decorado)
+### 1. Dry-run (default, zero cost)
 
-O dry-run termina com o pacote salvo em arquivos. Só depois perguntar se o
-usuário quer executar a geração.
+Delivers the complete pre-production package WITHOUT spending a single API
+credit:
 
-### 2. Execução (opcional, chaves do usuário)
+- **Decupage** shot by shot (table: number, duration, framing, action, camera,
+  transition) — use `template/decupage-template.md`
+- **Generation prompt** ready for each shot (image-to-video), with the
+  character bible embedded for consistency
+- **Character bible** — read `references/character-bible.md`
+- **Audio-cut plan** — ready-to-run ffmpeg commands, one segment per shot with
+  lipsync, timestamps derived from the lyrics/beat
+- **Cost estimate** — generated seconds × the provider's current price
+  (check the current price before estimating; never use a memorized figure)
 
-Ler `references/pipeline.md` na íntegra antes de gerar qualquer coisa.
-Ordem inegociável: gerar plano de teste único → validar com o usuário →
-só então produzir em lote. Nunca gerar os planos todos de uma vez sem
-um plano-piloto aprovado.
+The dry-run ends with the package saved to files. Only then ask whether the
+user wants to run the generation.
 
-## Fluxo ao ser invocado
+### 2. Execution (optional, the user's own keys)
 
-1. Perguntar (ou inferir do contexto) o tipo de projeto: clipe musical /
-   brandfilm / imóvel / narrativa. Cada tipo tem um card de plano dedicado
-   em `references/shots/`.
-2. Coletar insumos mínimos: áudio (para clipe), referências visuais,
-   descrição do personagem ou produto.
-3. Rodar o dry-run completo. Não pausar para confirmação a cada etapa —
-   entregar o pacote inteiro e revisar em cima do concreto.
-4. Apresentar custo estimado e perguntar se executa.
+Read `references/pipeline.md` in full before generating anything.
+Non-negotiable order: generate a single pilot shot → validate it with the user
+→ only then produce the batch. Never generate every shot at once without an
+approved pilot.
 
-## Cards de plano (shot cards)
+## Flow when invoked
 
-Cada card em `references/shots/` documenta um tipo de plano validado:
-intenção, estrutura do prompt, parâmetros com fonte, erros conhecidos
-("já quebrou assim"), e critério de aceite. Ler o card inteiro antes de
-escrever o prompt do plano correspondente.
+1. Ask (or infer from context) the project type: music video / brand film /
+   real estate / narrative. Each type has a dedicated shot card in
+   `references/shots/`.
+2. Collect the minimum inputs: audio (for a music video), visual references,
+   description of the character or product.
+3. Run the full dry-run. Do not pause for confirmation at every step — deliver
+   the whole package and review against something concrete.
+4. Present the estimated cost and ask whether to execute.
 
-| Card | Quando usar |
+## Shot cards
+
+Each card in `references/shots/` documents one validated shot type: intent,
+prompt structure, parameters with sources, known failures ("this is how it
+broke"), and acceptance criteria. Read the whole card before writing the prompt
+for the corresponding shot.
+
+| Card | When to use |
 |---|---|
-| `shots/master-performance.md` | Plano de performance do artista (corpo inteiro/médio) |
-| `shots/close-up-lipsync.md` | Close com sincronia labial — o plano mais crítico |
-| `shots/plano-sequencia.md` | Movimento contínuo de câmera em cena generativa |
-| `shots/showcase-imovel.md` | Showcase de imóvel/arquitetura — sem personagem, o espaço é o produto |
+| `references/shots/master-performance.md` | Artist performance shot (full or medium body) |
+| `references/shots/close-up-lipsync.md` | Close-up with lip sync — the most critical shot |
+| `references/shots/sequence-shot.md` | Continuous camera movement in a generative scene |
+| `references/shots/property-showcase.md` | Real-estate/architecture showcase — no character, the space is the product |
 
-## O que este skill NÃO faz
+## What this skill does NOT do
 
-- Não substitui motion graphics de UI (para promo de produto digital com
-  screenshots reais, use um skill de Remotion como video-shotcraft)
-- Não gera vídeo sem aprovação explícita do custo pelo usuário
-- Não inventa parâmetros: PENDENTE é resposta válida
+- It does not replace UI motion graphics (for a digital-product promo with real
+  screenshots, use a Remotion-style skill such as video-shotcraft)
+- It does not generate video without the user explicitly approving the cost
+- It does not invent parameters: `PENDING` is a valid answer
 
 ---
-Construído pela Forja Criativa (forjacriativa.ia.br) a partir de pipeline
-validado em produção. Produção completa sob encomenda no site.
+Built by Forja Criativa (forjacriativa.ia.br) from a production-validated
+pipeline. Full production service available at the site.
+
+Portuguese version of this document: `pt-BR/SKILL.pt-BR.md`

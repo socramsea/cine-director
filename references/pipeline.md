@@ -1,94 +1,96 @@
-# Pipeline de produção — vídeo generativo com lipsync
+# Production pipeline — generative video with lipsync
 
-Fluxo validado em produção real (clipe musical, decupagem de 18 planos).
-Marcações `PENDENTE [fonte]` indicam valores que devem ser preenchidos
-pelo mantenedor com dados de produção — nunca estimados pelo agente.
+Flow validated in real production (music video, 18-shot decupage).
+`PENDING [source]` markers indicate values the maintainer must fill in with
+production data — never estimated by the agent.
 
-## Visão geral
+## Overview
 
 ```
-[1] Pré-produção (dry-run)          custo: R$ 0
-    música/ideia → decupagem → bíblia de personagem → prompts → plano de áudio
+[1] Pre-production (dry-run)         cost: 0
+    music/idea → decupage → character bible → prompts → audio plan
                     ↓
-[2] Imagem-referência por plano      custo: baixo
-    imagem canônica do personagem/cena, uma por plano
+[2] Reference image per shot         cost: low
+    canonical image of the character/scene, one per shot
                     ↓
-[3] Image-to-video                   custo: por segundo gerado
-    motor validado: Grok Imagine Video (versão em uso: 1.5)
+[3] Image-to-video                   cost: per generated second
+    validated engine: Grok Imagine Video (version in use: 1.5)
                     ↓
-[4] Cortes de áudio (ffmpeg)         custo: R$ 0, local
-    um segmento de áudio por plano com vocal, timestamps da decupagem
+[4] Audio cuts (ffmpeg)              cost: 0, local
+    one audio segment per shot with vocals, timestamps from the decupage
                     ↓
-[5] Lipsync por plano                custo: por segundo processado
-    motor validado: Sync Lipsync v2 (via fal.ai)
+[5] Per-shot lipsync                 cost: per processed second
+    validated engine: Sync Lipsync v2 (via fal.ai)
                     ↓
-[6] Montagem final (ffmpeg/NLE)      custo: R$ 0, local
+[6] Final edit (ffmpeg/NLE)          cost: 0, local
 ```
 
-## Etapa 1 — Pré-produção (o produto principal)
+## Step 1 — Pre-production (the main product)
 
-Ver SKILL.md (modo dry-run) e `../template/decupagem-template.md`.
-Regra de ouro: a decupagem trava ANTES de gerar qualquer frame.
-Mudar plano depois de gerado = pagar de novo.
+See SKILL.md (dry-run mode) and `../template/decupage-template.md`.
+Golden rule: the decupage locks BEFORE a single frame is generated.
+Changing a shot after it has been generated means paying for it again.
 
-## Etapa 2 — Imagem-referência
+## Step 2 — Reference image
 
-- Toda cena parte de uma imagem canônica derivada da bíblia de personagem
-  (`character-bible.md`). Nunca gerar vídeo de prompt puro quando há
-  personagem recorrente: a consistência entre planos vem da imagem, não
-  do texto.
-- Critério de aceite da imagem antes de animar: identidade do personagem
-  conferida contra a bíblia item a item (rosto, óculos, figurino, luz).
-  Imagem reprovada não avança — regerar é mais barato que animar errado.
+- Every scene starts from a canonical image derived from the character bible
+  (`character-bible.md`). Never generate video from a pure text prompt when
+  there is a recurring character: consistency between shots comes from the
+  image, not from the text.
+- Acceptance criteria for the image before animating it: the character's
+  identity checked against the bible item by item (face, glasses, wardrobe,
+  light). A rejected image does not move forward — regenerating is cheaper than
+  animating the wrong thing.
 
-## Etapa 3 — Image-to-video
+## Step 3 — Image-to-video
 
-- Duração por take: PENDENTE [preencher: duração máxima confiável
-  observada em produção antes de degradar]
-- Estrutura de prompt que funcionou: ver cards em `shots/`
-- Erro conhecido: prompts com múltiplas ações simultâneas degradam a
-  fidelidade do personagem. Uma ação principal por plano.
+- Duration per take: PENDING [fill in: maximum reliable duration observed in
+  production before degradation]
+- Prompt structure that worked: see the cards in `shots/`
+- Known failure: prompts with multiple simultaneous actions degrade character
+  fidelity. One main action per shot.
 
-## Etapa 4 — Cortes de áudio (ffmpeg)
+## Step 4 — Audio cuts (ffmpeg)
 
-Um arquivo de áudio por plano com lipsync, cortado do master:
+One audio file per shot with lipsync, cut from the master:
 
 ```bash
-# padrão validado — corte sem reencode quando possível
-ffmpeg -i master.wav -ss <início> -to <fim> -c copy plano_NN.wav
-# se o corte precisar de precisão de frame (c copy corta em keyframe):
-ffmpeg -i master.wav -ss <início> -to <fim> plano_NN.wav
+# validated pattern — cut without re-encoding when possible
+ffmpeg -i master.wav -ss <start> -to <end> -c copy shot_NN.wav
+# if the cut needs frame accuracy (-c copy cuts at a keyframe):
+ffmpeg -i master.wav -ss <start> -to <end> shot_NN.wav
 ```
 
-- Timestamps vêm da coluna "áudio" da decupagem — a decupagem é a
-  fonte única de verdade de tempo.
-- Margem de segurança nos cortes: PENDENTE [preencher: padding em ms
-  usado em produção antes/depois do vocal]
+- Timestamps come from the "audio" column of the decupage — the decupage is the
+  single source of truth for time.
+- Safety margin on the cuts: PENDING [fill in: padding in ms used in production
+  before and after the vocal]
 
-## Etapa 5 — Lipsync
+## Step 5 — Lipsync
 
-- Entrada: vídeo do plano (etapa 3) + segmento de áudio (etapa 4)
-- Motor validado: Sync Lipsync v2 via fal.ai
-- Parâmetros de produção: PENDENTE [preencher: config validada]
-- Erro conhecido: PENDENTE [preencher: falhas observadas — ângulos de
-  rosto, oclusão, planos muito abertos etc.]
-- Custo: consultar preço vigente em fal.ai/models antes de estimar.
-  Nunca usar preço decorado — muda sem aviso.
+- Input: the shot's video (step 3) + the audio segment (step 4)
+- Validated engine: Sync Lipsync v2 via fal.ai
+- Production parameters: PENDING [fill in: validated config]
+- Known failures: PENDING [fill in: observed failures — face angles, occlusion,
+  framings that are too wide, etc.]
+- Cost: check the current price at fal.ai/models before estimating. Never use a
+  memorised price — it changes without notice.
 
-## Etapa 6 — Montagem
+## Step 6 — Edit
 
-Concat ffmpeg na ordem da decupagem; áudio master por cima da timeline
-de vídeo (os áudios de lipsync serviram para sincronia, o master final
-garante qualidade contínua):
+ffmpeg concat in decupage order; master audio over the video timeline (the
+lipsync audio served for synchronisation, the final master guarantees
+continuous quality):
 
 ```bash
-ffmpeg -f concat -safe 0 -i lista.txt -i master.wav \
+ffmpeg -f concat -safe 0 -i list.txt -i master.wav \
   -map 0:v -map 1:a -c:v copy -shortest final.mp4
 ```
 
-## Ordem de execução inegociável
+## Non-negotiable order of execution
 
-1. Dry-run completo aprovado
-2. UM plano-piloto gerado de ponta a ponta (etapas 2→5)
-3. Piloto aprovado pelo usuário → produção em lote
-4. Nunca gerar em lote sem piloto: erro sistemático em lote = custo × N
+1. Full dry-run approved
+2. ONE pilot shot generated end to end (steps 2→5)
+3. Pilot approved by the user → batch production
+4. Never generate the batch without a pilot: a systematic error in a batch
+   costs you the error × N

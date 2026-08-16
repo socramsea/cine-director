@@ -1,33 +1,34 @@
 ---
 name: master-performance
-uma-linha: plano de performance do artista, corpo médio/inteiro, ancora o clipe
-aplicação: clipes musicais; qualquer vídeo com personagem performando
-status: validado em produção (clipe real, planos 01-03)
+one-liner: artist performance shot, medium/full body, anchors the whole video
+applies-to: music videos; any video with a performing character
+status: validated in production (real music video, shots 01-03)
 ---
 
-## Intenção
-O plano master é o "chão" do clipe: estabelece personagem, lugar e energia.
-Os closes e detalhes cortam a partir dele. Errar o master = refazer o clipe.
+## Intent
+The master shot is the floor of the video: it establishes character, place and
+energy. Close-ups and detail shots cut away from it. Get the master wrong and
+you reshoot the whole video.
 
-## Estrutura do prompt
-[BÍBLIA íntegra] + [ação única: ex. "canta olhando para o horizonte,
-balanço sutil no ritmo"] + [câmera: ex. "medium shot, câmera fixa com
-leve drift lateral"]
+## Prompt structure
+[FULL BIBLE] + [single action, e.g. "sings looking at the horizon, subtle sway
+on the beat"] + [camera, e.g. "medium shot, locked camera with a slight lateral
+drift"]
 
-## Parâmetros
-| Parâmetro | Valor | Fonte |
+## Parameters
+| Parameter | Value | Source |
 |---|---|---|
-| Duração do take | PENDENTE | produção real |
-| Enquadramento que segura identidade | médio (cintura p/ cima) | produção: planos abertos demais degradam rosto p/ lipsync |
-| Ações por plano | 1 | produção: 2+ ações = deriva de identidade |
+| Take duration | PENDING | real production |
+| Framing that holds identity | medium (waist up) | production: framings that are too wide degrade the face for lipsync |
+| Actions per shot | 1 | production: 2+ actions cause identity drift |
 
-## Erros conhecidos
-- Corpo inteiro + rosto pequeno no quadro → lipsync posterior falha ou
-  fica artificial. Se o plano é para lipsync, rosto precisa de área
-  mínima no quadro: PENDENTE [medir nos planos aprovados].
-- Movimento de câmera rápido + performance → o modelo prioriza a câmera
-  e "congela" o personagem.
+## Known failures
+- Full body with a small face in frame → the later lipsync pass fails or looks
+  artificial. If the shot is meant for lipsync, the face needs a minimum area
+  in frame: PENDING [measure on the approved shots].
+- Fast camera movement plus performance → the model prioritises the camera and
+  "freezes" the character.
 
-## Critério de aceite
-Identidade conferida contra a bíblia; movimento natural no tempo da
-música; rosto com área suficiente se houver lipsync em seguida.
+## Acceptance criteria
+Identity checked against the bible; movement natural to the tempo of the music;
+face large enough in frame if lipsync follows.

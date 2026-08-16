@@ -1,41 +1,40 @@
 ---
 name: close-up-lipsync
-uma-linha: close frontal para sincronia labial — o plano mais crítico e mais caro de errar
-aplicação: qualquer plano onde o personagem canta/fala para câmera
-status: validado em produção (pipeline Grok Imagine → ffmpeg → Sync Lipsync v2)
+one-liner: frontal close-up for lip sync — the most critical shot, and the most expensive to get wrong
+applies-to: any shot where the character sings or speaks to camera
+status: validated in production (Grok Imagine → ffmpeg → Sync Lipsync v2 pipeline)
 ---
 
-## Intenção
-É o plano que vende o clipe: o espectador julga o realismo inteiro pela
-boca. Todo o pipeline existe para este plano dar certo.
+## Intent
+This is the shot that sells the video: the viewer judges the realism of the
+whole piece by the mouth. The entire pipeline exists so that this shot works.
 
-## Pré-requisitos (nesta ordem)
-1. Corte de áudio do plano pronto e conferido (timestamps da decupagem)
-2. Vídeo base gerado com rosto frontal ou 3/4, bem iluminado
-3. Só então o lipsync
+## Prerequisites (in this order)
+1. The shot's audio cut is ready and checked (timestamps from the decupage)
+2. Base video generated with a frontal or 3/4 face, well lit
+3. Only then, the lipsync pass
 
-## Estrutura do prompt (vídeo base)
-[BÍBLIA íntegra] + "canta para a câmera com emoção contida, movimento
-de cabeça sutil" + "close-up frontal, lente PENDENTE [preencher se
-padronizado], profundidade de campo rasa"
+## Prompt structure (base video)
+[FULL BIBLE] + "sings to camera with contained emotion, subtle head movement" +
+"frontal close-up, lens PENDING [fill in if standardised], shallow depth of
+field"
 
-## Parâmetros
-| Parâmetro | Valor | Fonte |
+## Parameters
+| Parameter | Value | Source |
 |---|---|---|
-| Ângulo máximo do rosto | PENDENTE | testar: frontal vs 3/4 vs perfil |
-| Duração do segmento de lipsync | = duração do plano na decupagem | decupagem é fonte única de tempo |
-| Config Sync Lipsync v2 | PENDENTE | config validada em produção |
+| Maximum face angle | PENDING | test: frontal vs 3/4 vs profile |
+| Lipsync segment duration | = the shot's duration in the decupage | the decupage is the single source of truth for time |
+| Sync Lipsync v2 config | PENDING | config validated in production |
 
-## Erros conhecidos
-- Gerar o vídeo base COM a boca já se movendo (personagem "cantando" no
-  prompt do vídeo) e aplicar lipsync por cima: PENDENTE [confirmar em
-  produção se boca neutra ou cantando dá melhor resultado no v2].
-- Barba cheia: verificar no piloto se o motor de lipsync trata bem a
-  região da boca com barba — validar antes do lote.
-- Corte de áudio começando no meio de uma sílaba → primeiro visema
-  errado e perceptível. Cortar em respiração/pausa.
+## Known failures
+- Generating the base video with the mouth already moving (character "singing"
+  in the video prompt) and applying lipsync on top: PENDING [confirm in
+  production whether a neutral or singing mouth gives a better result on v2].
+- Full beard: check on the pilot whether the lipsync engine handles the mouth
+  region well with a beard — validate before the batch.
+- An audio cut starting mid-syllable → the first viseme is wrong and clearly
+  visible. Cut on a breath or a pause.
 
-## Critério de aceite
-Sincronia frame-exata nas plosivas (p, b, m); identidade preservada
-(o lipsync não pode "trocar o rosto"); transição limpa nos frames de
-entrada/saída do plano.
+## Acceptance criteria
+Frame-exact sync on the plosives (p, b, m); identity preserved (the lipsync
+must not "swap the face"); clean transition on the shot's in and out frames.

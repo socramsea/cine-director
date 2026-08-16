@@ -1,79 +1,79 @@
-# Bíblia de personagem — consistência entre planos
+# Character bible — consistency across shots
 
-O maior problema de vídeo generativo com personagem recorrente não é
-qualidade de imagem — é o personagem virar OUTRA PESSOA entre o plano 3
-e o plano 4. A bíblia resolve isso por especificação exaustiva e imutável.
+The biggest problem in generative video with a recurring character is not image
+quality — it is the character becoming A DIFFERENT PERSON between shot 3 and
+shot 4. The bible solves this through exhaustive, immutable specification.
 
-## Princípio
+## Principle
 
-A bíblia é um bloco de texto CANÔNICO e CONGELADO que entra idêntico,
-palavra por palavra, em todo prompt de imagem-referência e todo prompt
-de vídeo do projeto. Não se parafraseia a bíblia. Não se "melhora" a
-bíblia no meio da produção. Mudou a bíblia = novo projeto visual.
+The bible is a CANONICAL, FROZEN block of text that goes in word for word,
+identically, in every reference-image prompt and every video prompt of the
+project. You do not paraphrase the bible. You do not "improve" the bible
+mid-production. Changing the bible means a new visual project.
 
-## Estrutura (7 campos obrigatórios)
+## Structure (7 mandatory fields)
 
-1. **Identidade física fixa** — idade aparente, etnia, estrutura facial,
-   cabelo/calvície, barba. Tudo que define o rosto.
-2. **Acessórios de identidade** — itens que ancoram o reconhecimento
-   (ex.: óculos de armação fina). Modelos generativos seguram melhor a
-   identidade quando há âncoras visuais discretas e repetíveis.
-3. **Figurino canônico** — peça e cor exatas. Uma por "ato" do vídeo no
-   máximo; cada troca de figurino multiplica o risco de deriva.
-4. **Paleta e luz** — hora do dia, temperatura de cor, ambiente
-   (ex.: golden hour, oceano turquesa). A luz é parte da identidade.
-5. **Postura e energia** — como o personagem se move e ocupa o quadro.
-6. **Proibições explícitas** — o que o modelo tende a adicionar e não
-   pode (ex.: "no hat, no jewelry, no tattoos").
-7. **Frase de estilo de câmera** — a assinatura fotográfica do projeto,
-   repetida em todos os planos.
+1. **Fixed physical identity** — apparent age, ethnicity, facial structure,
+   hair/baldness, beard. Everything that defines the face.
+2. **Identity accessories** — items that anchor recognition (e.g. thin-framed
+   glasses). Generative models hold identity better when there are discreet,
+   repeatable visual anchors.
+3. **Canonical wardrobe** — exact garment and colour. One per "act" of the video
+   at most; every wardrobe change multiplies the risk of drift.
+4. **Palette and light** — time of day, colour temperature, environment (e.g.
+   golden hour, turquoise ocean). Light is part of the identity.
+5. **Posture and energy** — how the character moves and occupies the frame.
+6. **Explicit prohibitions** — what the model tends to add and must not (e.g.
+   "no hat, no jewelry, no tattoos").
+7. **Camera style phrase** — the photographic signature of the project,
+   repeated on every shot.
 
-## Exemplo real (estrutura do caso validado)
+## Real example (structure of the validated case)
 
-> Personagem: homem negro, ~40 anos, careca, barba cheia, óculos de
-> armação fina, gola alta preta. Luz: golden hour, oceano turquesa ao
-> fundo. [Campos 5–7: preencher com a versão canônica congelada do
-> projeto — a bíblia completa vive com o projeto, não com o skill.]
+> Character: Black man, ~40 years old, bald, full beard, thin-framed glasses,
+> black turtleneck. Light: golden hour, turquoise ocean in the background.
+> [Fields 5–7: fill in with the project's frozen canonical version — the
+> complete bible lives with the project, not with the skill.]
 
-## Uso nos prompts
+## Use in prompts
 
 ```
-[BÍBLIA — colar íntegra, sem editar]
+[BIBLE — paste in full, unedited]
 +
-[AÇÃO DO PLANO — uma ação principal, ver card do tipo de plano]
+[SHOT ACTION — one main action, see the card for the shot type]
 +
-[CÂMERA — enquadramento e movimento do plano, da decupagem]
+[CAMERA — framing and movement for the shot, from the decupage]
 ```
 
-## Erros conhecidos
+## Known failures
 
-- Parafrasear a bíblia "para encurtar o prompt" → deriva de identidade.
-- Descrever emoção sem descrever fisicamente ("triste" vs. "olhar baixo,
-  ombros caídos") → o modelo muda o rosto para expressar a emoção.
-- Duas ações no mesmo plano → o modelo sacrifica a identidade para dar
-  conta do movimento.
+- Paraphrasing the bible "to shorten the prompt" → identity drift.
+- Describing emotion without describing it physically ("sad" vs. "lowered gaze,
+  slumped shoulders") → the model changes the face to express the emotion.
+- Two actions in the same shot → the model sacrifices identity to handle the
+  movement.
 
 ---
 
-## Projetos sem personagem: bíblia de espaço
+## Projects without a character: the space bible
 
-Nem todo projeto tem personagem (imóveis, produtos, paisagens). Nesses
-casos NÃO force os 7 campos — use a **bíblia de espaço**, com 5 campos:
+Not every project has a character (real estate, products, landscapes). In those
+cases do NOT force the 7 fields — use the **space bible**, with 5 fields:
 
-1. **Identidade do espaço/objeto** — o que é, materiais, cores dominantes.
-   Para imóvel real: a foto-fonte É a identidade; a bíblia descreve o que
-   a foto mostra, nunca o que se gostaria que mostrasse.
-2. **Luz canônica** — hora do dia, temperatura, direção. UMA condição de
-   luz para o projeto inteiro, mesmo que as fotos-fonte variem — é o que
-   faz cômodos diferentes parecerem o mesmo imóvel.
-3. **Paleta congelada** — 3–4 cores que amarram todos os planos.
-4. **Assinatura de câmera** — lente/ângulo/altura padrão do projeto
-   (ex.: "wide, altura do olho, sempre nivelada" — horizonte torto em
-   imóvel parece defeito estrutural).
-5. **Proibições explícitas** — o que o modelo tende a adicionar e não
-   pode (ex.: "no people, no pets, no text, no added furniture").
+1. **Identity of the space/object** — what it is, materials, dominant colours.
+   For a real property: the source photo IS the identity; the bible describes
+   what the photo shows, never what you wish it showed.
+2. **Canonical light** — time of day, temperature, direction. ONE lighting
+   condition for the entire project, even when the source photos vary — this is
+   what makes different rooms look like the same property.
+3. **Frozen palette** — 3–4 colours that tie every shot together.
+4. **Camera signature** — the project's default lens/angle/height (e.g. "wide,
+   eye height, always level" — a crooked horizon in a property video reads as a
+   structural defect).
+5. **Explicit prohibitions** — what the model tends to add and must not (e.g.
+   "no people, no pets, no text, no added furniture").
 
-Mesmas regras da bíblia de personagem: bloco canônico CONGELADO, colado
-íntegro em todo prompt, sem paráfrase, sem "melhorias" no meio da produção.
+Same rules as the character bible: a CANONICAL FROZEN block, pasted in full in
+every prompt, no paraphrase, no "improvements" mid-production.
 
-Card correspondente: `shots/showcase-imovel.md`.
+Corresponding card: `shots/property-showcase.md`.
