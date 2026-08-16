@@ -21,9 +21,9 @@ that thinking at zero cost. You only generate when the plan is locked.
 ## Install
 
 ```bash
-npx skills add <org>/cine-director
+npx skills add socramsea/cine-director
 # or
-git clone https://github.com/<org>/cine-director.git
+git clone https://github.com/socramsea/cine-director.git
 ln -s "$(pwd)/cine-director" ~/.claude/skills/cine-director
 ```
 
