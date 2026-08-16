@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vila Mar 402 — cine-director</title>
+<meta name="description" content="A cine-director dry-run package for a 30-second vertical property showcase: space bible, six shots, and the line a property video must not cross.">
+<link rel="canonical" href="https://socramsea.github.io/cine-director/vila-mar.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="cine-director">
+<meta property="og:title" content="Vila Mar 402">
+<meta property="og:description" content="A 30-second property showcase, held to what the photographs actually show. Six shots, a space bible, and no character in sight.">
+<meta property="og:url" content="https://socramsea.github.io/cine-director/vila-mar.html">
+<meta property="og:image" content="https://socramsea.github.io/cine-director/og-vila-mar.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vila Mar 402">
+<meta name="twitter:description" content="A 30-second property showcase, held to what the photographs actually show.">
+<meta name="twitter:image" content="https://socramsea.github.io/cine-director/og-vila-mar.png">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8E%AC</text></svg>">
+
+<style>
+  /* ---- Tokens -------------------------------------------------------- */
+  /* Drawn from this project's own space bible: warm white plaster, pale oak,
+     matte grey porcelain, black aluminium, mid-morning daylight.
+     Light is the room; dark is the frame around it. */
+  :root {
+    --ground:  #F2EDE4;
+    --surface: #FBF8F2;
+    --sunken:  #E6DFD2;
+    --ink:     #1A1F1D;
+    --muted:   #636B66;
+    --line:    #D5CCBB;
+    --oak:     #8A6533;
+    --grey:    #6E756F;
+    --plaster: #B9AF9C;
+    --accent-soft: rgba(138, 101, 51, 0.10);
+    /* Frame swatches are mid-tone in light and pale in dark, so the number
+       drawn on them has to flip with the theme, not stay one colour. */
+    --frame-num: rgba(242, 237, 228, 0.82);
+
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+
+    --step--1: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+    --step-0:  clamp(0.95rem, 0.92rem + 0.16vw, 1.05rem);
+    --step-1:  clamp(1.18rem, 1.10rem + 0.38vw, 1.40rem);
+    --step-2:  clamp(1.55rem, 1.36rem + 0.90vw, 2.10rem);
+    --step-3:  clamp(2.20rem, 1.70rem + 2.30vw, 3.90rem);
+
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:  #1A1F1D;
+      --surface: #232926;
+      --sunken:  #141917;
+      --ink:     #F2EDE4;
+      --muted:   #9AA09B;
+      --line:    #333B38;
+      --oak:     #C9A97C;
+      --grey:    #8A8F8C;
+      --plaster: #E6DFD2;
+      --accent-soft: rgba(201, 169, 124, 0.12);
+      --frame-num: rgba(26, 31, 29, 0.62);
+
+      color-scheme: dark;
+    }
+  }
+
+  /* ---- Base ---------------------------------------------------------- */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 66rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 4rem) clamp(1.1rem, 4vw, 2.5rem) 5rem;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  p { margin: 0; max-width: 62ch; }
+  a { color: var(--oak); }
+  a:focus-visible { outline: 2px solid var(--oak); outline-offset: 3px; border-radius: 2px; }
+
+  .label {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---- Masthead ------------------------------------------------------ */
+  .masthead {
+    display: flex; flex-direction: column; gap: 1.3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .slugline { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; align-items: baseline; }
+  .stamp {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oak);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 0.25rem 0.6rem;
+  }
+  /* Serif display here, deliberately inverting the shot sheet's mono headline:
+     property work speaks in brochure, not in slate. */
+  h1 {
+    font-family: var(--serif);
+    font-size: var(--step-3);
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 1.0;
+  }
+  h1 em { font-style: normal; color: var(--oak); }
+  .deck { font-size: var(--step-1); color: var(--muted); line-height: 1.45; }
+
+  /* ---- Sections ------------------------------------------------------ */
+  section { margin-top: clamp(2.8rem, 6vw, 4.5rem); }
+  .sec-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  h2 {
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  /* ---- The route: six 9:16 frames ------------------------------------ */
+  .frames-scroll { overflow-x: auto; padding-bottom: 0.4rem; }
+  .frames { display: flex; gap: 0.7rem; min-width: 32rem; }
+  .fr { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+  .fr .box {
+    aspect-ratio: 9 / 16;
+    background: var(--c);
+    border-radius: 2px;
+    position: relative;
+  }
+  .fr .box::after {
+    content: attr(data-n);
+    position: absolute; top: 0.4rem; left: 0.5rem;
+    font-family: var(--mono); font-size: var(--step--1);
+    color: var(--frame-num);
+    font-variant-numeric: tabular-nums;
+  }
+  .fr .cap {
+    font-family: var(--mono); font-size: var(--step--1);
+    letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+  }
+
+  .readout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    margin-top: 2rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .cell { background: var(--surface); padding: 0.9rem 1rem; }
+  .cell .v {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    font-variant-numeric: tabular-nums;
+    display: block;
+    margin-top: 0.2rem;
+  }
+  .cell .v.acc { color: var(--oak); }
+
+  /* ---- Bible --------------------------------------------------------- */
+  .bible {
+    background: var(--sunken);
+    border-left: 3px solid var(--oak);
+    border-radius: 0 3px 3px 0;
+    padding: 1.5rem clamp(1rem, 3vw, 2rem);
+  }
+  .bible p { font-size: var(--step-0); line-height: 1.75; max-width: 60ch; margin-top: 0.9rem; }
+  .bible .label { color: var(--oak); }
+
+  /* ---- Shot list ----------------------------------------------------- */
+  .shots {
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: 3px; overflow: hidden;
+  }
+  .shot {
+    display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.35rem 1.1rem;
+    background: var(--surface); padding: 1rem clamp(0.85rem, 2vw, 1.3rem);
+  }
+  @media (min-width: 46rem) {
+    .shot { grid-template-columns: 4.5rem 8rem 1fr; align-items: baseline; }
+  }
+  .shot .tc {
+    font-family: var(--mono); font-size: var(--step--1);
+    font-variant-numeric: tabular-nums; color: var(--muted);
+  }
+  .shot .tc b { display: block; color: var(--ink); font-weight: 600; font-size: var(--step-0); }
+  .room {
+    font-family: var(--mono); font-size: var(--step--1);
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--oak);
+  }
+  .shot .cam { color: var(--muted); font-size: var(--step--1); font-family: var(--mono); }
+  .shot.risk { background: var(--accent-soft); }
+
+  /* ---- Callout ------------------------------------------------------- */
+  .callout {
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--oak);
+    border-radius: 0 0 3px 3px;
+    background: var(--surface);
+    padding: clamp(1.1rem, 3vw, 1.8rem);
+    display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .callout h3 { font-family: var(--serif); font-size: var(--step-1); font-weight: 600; }
+
+  /* ---- Cost ---------------------------------------------------------- */
+  .eq {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    background: var(--sunken);
+    border-radius: 3px;
+    padding: 1.2rem clamp(0.9rem, 3vw, 1.6rem);
+    overflow-x: auto; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .pend { color: var(--oak); border-bottom: 1px dashed var(--oak); padding-bottom: 1px; }
+
+  /* ---- Footer -------------------------------------------------------- */
+  footer {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  code.cmd {
+    font-family: var(--mono); font-size: var(--step-0);
+    background: var(--sunken); padding: 0.7rem 1rem;
+    border-radius: 3px; display: block; overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="slugline">
+      <span class="label">cine-director / dry run</span>
+      <span class="stamp">0 credits spent</span>
+      <span class="stamp">fictional listing</span>
+    </div>
+    <h1>Vila Mar <em>402</em></h1>
+    <p class="deck">
+      A 30-second vertical property showcase, planned shot by shot — and held to
+      what the photographs actually show. No character, no invented rooms, no
+      view the window does not have.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">The route</span>
+      <h2>Six shots, in walking order</h2>
+      <p>
+        Entrance, kitchen, bedroom, bathroom, balcony, exterior. This is the
+        order someone walks the apartment, not the order that front-loads the
+        best rooms — a showcase that opens on the balcony and closes on the
+        bathroom tells the viewer the bathroom is the disappointment.
+      </p>
+    </div>
+
+    <div class="frames-scroll">
+      <div class="frames">
+        <div class="fr"><div class="box" style="--c:var(--plaster)" data-n="01"></div><span class="cap">Living</span></div>
+        <div class="fr"><div class="box" style="--c:var(--grey)"    data-n="02"></div><span class="cap">Kitchen</span></div>
+        <div class="fr"><div class="box" style="--c:var(--oak)"     data-n="03"></div><span class="cap">Bedroom</span></div>
+        <div class="fr"><div class="box" style="--c:var(--grey)"    data-n="04"></div><span class="cap">Bath</span></div>
+        <div class="fr"><div class="box" style="--c:var(--oak)"     data-n="05"></div><span class="cap">Balcony</span></div>
+        <div class="fr"><div class="box" style="--c:var(--plaster)" data-n="06"></div><span class="cap">Exterior</span></div>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="cell"><span class="label">Shots</span><span class="v num">6</span></div>
+      <div class="cell"><span class="label">Seconds</span><span class="v num">30.000</span></div>
+      <div class="cell"><span class="label">Per shot</span><span class="v num">5.000</span></div>
+      <div class="cell"><span class="label">Format</span><span class="v num acc">9:16</span></div>
+      <div class="cell"><span class="label">Credits spent</span><span class="v num">0</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Frozen, pasted whole into every prompt</span>
+      <h2>The space bible</h2>
+      <p>
+        No character means no character bible. This project uses the five-field
+        space bible instead — and its heaviest field is the light. The source
+        photos were taken across different times of day, as listing photos
+        always are. Freezing one lighting condition is what makes six separately
+        generated shots read as one apartment.
+      </p>
+    </div>
+    <div class="bible">
+      <span class="label">Canonical block — do not edit</span>
+      <p>
+        A 68 m² two-bedroom apartment on the fourth floor of a low coastal
+        building. Interiors in warm white plaster with pale oak flooring in the
+        living areas and large-format matte grey porcelain tile in the kitchen
+        and bathroom; window and door frames in slim black aluminium; a single
+        continuous eye-level horizon line through the living space. Light:
+        mid-morning, roughly 10am, sun high and slightly off-frame to the left,
+        daylight-balanced and even, soft shadows with no hard edges, every room
+        lit as if photographed within the same twenty minutes. Palette: warm
+        white, pale oak, matte grey, black aluminium. Camera: wide lens, held at
+        eye height, horizon always level, no tilt, no roll, no handheld motion.
+        No people, no pets, no text or graphics, no added or altered furniture,
+        no changed views through the windows, no additional light fixtures, no
+        reflections of anything not present in the room.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Short takes beat one long glide</span>
+      <h2>The decupage</h2>
+      <p>
+        Every shot uses the same card, and every movement is slow. Interiors are
+        where straight lines bend — doors, window frames, skirting boards, tile
+        grids. A five-second take gives the engine less room to drift than a
+        thirty-second one, and the cut hides what remains.
+      </p>
+    </div>
+
+    <div class="shots">
+      <div class="shot"><span class="tc"><b>01</b>5.000 s</span><span class="room">Living</span><span>Wide from the entrance. <strong>Pilot shot.</strong><br><span class="cam">Slow dolly-in toward the window</span></span></div>
+      <div class="shot"><span class="tc"><b>02</b>5.000 s</span><span class="room">Kitchen</span><span>Wide along the counter run.<br><span class="cam">Gentle lateral tracking, L→R</span></span></div>
+      <div class="shot"><span class="tc"><b>03</b>5.000 s</span><span class="room">Bedroom</span><span>Wide from the doorway.<br><span class="cam">Slow dolly-in</span></span></div>
+      <div class="shot risk"><span class="tc"><b>04</b>5.000 s</span><span class="room">Bath</span><span>Medium wide, mirror kept off-axis. <strong>Known failure.</strong><br><span class="cam">Very slow dolly-in · falls back to a static hold</span></span></div>
+      <div class="shot"><span class="tc"><b>05</b>5.000 s</span><span class="room">Balcony</span><span>Wide looking out.<br><span class="cam">Slow dolly-in toward the rail</span></span></div>
+      <div class="shot"><span class="tc"><b>06</b>5.000 s</span><span class="room">Exterior</span><span>Wide, building frontage from the street.<br><span class="cam">Gentle lateral tracking, R→L</span></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Non-negotiable</span>
+      <h2>The line this does not cross</h2>
+    </div>
+    <div class="callout">
+      <h3>Movement over what the photograph shows. Nothing added.</h3>
+      <p>
+        The video may generate movement across a real photograph. It may not
+        add, remove or improve anything: no furniture that is not there, no view
+        the window does not have, no room made larger than it is.
+      </p>
+      <p>
+        This is not a style preference. A showcase of a space that does not
+        exist is deceptive advertising, and the buyer finds out at the viewing.
+        So the prohibition lives inside the space bible itself, in field five,
+        where it travels into every prompt — rather than living in someone's
+        memory.
+      </p>
+      <p>
+        It is the same rule this whole skill is built on, applied to pixels
+        instead of numbers: do not present something invented as something
+        verified.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">One variable, and that is structural</span>
+      <h2>What it costs</h2>
+      <p>
+        No character means no generated reference images — the agent's own
+        listing photographs are the references — and no lipsync pass. Two of the
+        three cost lines a music video carries simply do not exist here.
+      </p>
+    </div>
+
+    <div class="eq">budget = 45.000 &times; <span class="pend">P_vid</span></div>
+
+    <p style="margin-top:1.5rem">
+      Thirty seconds, times a regeneration margin of 1.5, times today's
+      published price per second. Fill in one number and that is the budget.
+    </p>
+    <p style="margin-top:1rem">
+      The largest decision in it was free: locking 9:16 before the decupage.
+      Generating both 9:16 and 16:9 would have doubled the line — the same six
+      shots, twice — for a second format nobody asked for.
+    </p>
+  </section>
+
+  <footer>
+    <span class="label">Produced by cine-director in dry-run mode</span>
+    <p>
+      Vila Mar 402 is fictional, invented so the package could be published
+      whole. The method is not — and neither is the line it refuses to cross.
+    </p>
+    <code class="cmd">npx skills add socramsea/cine-director</code>
+    <p class="label">
+      <a href="./">Neon Tide shot sheet</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/socramsea/cine-director">source</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/socramsea/cine-director/tree/main/examples">all examples</a>
+      &nbsp;·&nbsp; Apache 2.0 &nbsp;·&nbsp; Forja Criativa
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

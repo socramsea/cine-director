@@ -7,10 +7,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- `docs/` — the Neon Tide package published as a single page on GitHub Pages,
-  with a share card for link previews. The palette is taken from the project's
-  own character bible: light theme is the paper a call sheet is printed on,
-  dark theme is the dusk the film is shot in.
+- `docs/` — both packages published as pages on GitHub Pages, each with a share
+  card for link previews. Each page takes its palette from its own project's
+  bible: Neon Tide runs on the film's dusk teal and burnt orange, Vila Mar on
+  the apartment's oak, plaster and matte grey. The information design differs
+  because the data does — Neon Tide draws twelve shots of varying length as a
+  proportional timeline, Vila Mar draws six equal shots as the 9:16 frames you
+  walk through in order.
 
 - `examples/` — two complete dry-run packages, published in full so the output
   can be read before installing:

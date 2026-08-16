@@ -81,11 +81,16 @@ does the skill ask whether you want to generate.
 
 ## See it before you install
 
-**[View the Neon Tide shot sheet →](https://socramsea.github.io/cine-director/)**
-— a full dry-run package as a single page: the 92 seconds drawn to scale, the
-frozen character bible, all twelve shots, and the cost estimate.
+Two dry-run packages published as pages, one per project type:
 
-Two complete packages are published in [`examples/`](./examples/):
+- **[Neon Tide →](https://socramsea.github.io/cine-director/)** — music video:
+  the 92 seconds drawn to scale, the frozen character bible, twelve shots, lip
+  sync on eight of them.
+- **[Vila Mar 402 →](https://socramsea.github.io/cine-director/vila-mar.html)**
+  — property showcase: no character, a space bible instead, six vertical shots,
+  and the line a property video must not cross.
+
+The same packages in full, as files, in [`examples/`](./examples/):
 
 | Example | What it shows |
 |---|---|

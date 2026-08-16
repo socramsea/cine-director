@@ -80,11 +80,16 @@ skill pergunta se você quer gerar.
 
 ## Veja antes de instalar
 
-**[Veja a ordem do dia do Neon Tide →](https://socramsea.github.io/cine-director/)**
-— um pacote de dry-run completo numa página só: os 92 segundos desenhados em
-escala, a bíblia de personagem congelada, os doze planos e a estimativa de custo.
+Dois pacotes de dry-run publicados como página, um por tipo de projeto:
 
-Dois pacotes completos estão publicados em [`examples/`](./examples/):
+- **[Neon Tide →](https://socramsea.github.io/cine-director/)** — clipe musical:
+  os 92 segundos desenhados em escala, a bíblia de personagem congelada, doze
+  planos, lipsync em oito deles.
+- **[Vila Mar 402 →](https://socramsea.github.io/cine-director/vila-mar.html)**
+  — showcase de imóvel: sem personagem, bíblia de espaço no lugar, seis planos
+  verticais, e o limite que um vídeo imobiliário não pode cruzar.
+
+Os mesmos pacotes na íntegra, em arquivos, em [`examples/`](./examples/):
 
 | Exemplo | O que mostra |
 |---|---|
