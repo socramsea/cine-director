@@ -7,13 +7,14 @@ description: >-
   character consistency bible, ffmpeg audio-cut plan, and an API cost estimate)
   at zero cost in dry-run mode, which is the default. An optional execution
   layer generates the footage with the user's own API keys, via image-to-video
-  plus lipsync.
+  plus lipsync. Answers to storyboarding, shot lists, lipsync and character
+  consistency, and to the Portuguese terms decupagem, clipe musical and vídeo
+  gerado por IA.
 when_to_use: >-
   Use when the user wants to plan, storyboard, direct, or produce an
   AI-generated video; asks what a generative video would cost before generating
-  it; or needs character consistency across shots, lipsync, or an audio-cut
-  plan. Also triggers on Portuguese requests — decupagem, clipe musical, video
-  gerado por IA, bíblia de personagem.
+  it; needs character consistency across shots, lipsync, or an audio-cut plan;
+  or asks for a decupagem, a bíblia de personagem, or a clipe.
 license: Apache-2.0
 ---
 
