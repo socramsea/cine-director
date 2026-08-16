@@ -80,6 +80,10 @@ skill pergunta se você quer gerar.
 
 ## Veja antes de instalar
 
+**[Veja a ordem do dia do Neon Tide →](https://socramsea.github.io/cine-director/)**
+— um pacote de dry-run completo numa página só: os 92 segundos desenhados em
+escala, a bíblia de personagem congelada, os doze planos e a estimativa de custo.
+
 Dois pacotes completos estão publicados em [`examples/`](./examples/):
 
 | Exemplo | O que mostra |

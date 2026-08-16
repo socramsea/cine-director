@@ -7,6 +7,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `docs/` — the Neon Tide package published as a single page on GitHub Pages,
+  with a share card for link previews. The palette is taken from the project's
+  own character bible: light theme is the paper a call sheet is printed on,
+  dark theme is the dusk the film is shot in.
+
 - `examples/` — two complete dry-run packages, published in full so the output
   can be read before installing:
   - **music-video-neon-tide** — recurring character, 12 shots, 8 with lipsync:

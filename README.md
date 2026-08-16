@@ -81,6 +81,10 @@ does the skill ask whether you want to generate.
 
 ## See it before you install
 
+**[View the Neon Tide shot sheet →](https://socramsea.github.io/cine-director/)**
+— a full dry-run package as a single page: the 92 seconds drawn to scale, the
+frozen character bible, all twelve shots, and the cost estimate.
+
 Two complete packages are published in [`examples/`](./examples/):
 
 | Example | What it shows |

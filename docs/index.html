@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Tide Shot Sheet — cine-director</title>
+<meta name="description" content="A complete cine-director dry-run package for a 92-second music video: decupage, character bible, prompts and cost estimate — produced before a single API credit is spent.">
+<link rel="canonical" href="https://socramsea.github.io/cine-director/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="cine-director">
+<meta property="og:title" content="Neon Tide Shot Sheet">
+<meta property="og:description" content="A 92-second music video, planned to the millisecond before a single frame was generated. The whole pre-production package — the part that costs nothing and decides everything.">
+<meta property="og:url" content="https://socramsea.github.io/cine-director/">
+<meta property="og:image" content="https://socramsea.github.io/cine-director/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Neon Tide Shot Sheet">
+<meta name="twitter:description" content="A 92-second music video, planned to the millisecond before a single frame was generated.">
+<meta name="twitter:image" content="https://socramsea.github.io/cine-director/og.png">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%8E%AC</text></svg>">
+
+<style>
+  /* ---- Tokens -------------------------------------------------------- */
+  /* Light: the bone paper a call sheet is printed on.
+     Dark:  the dusk the film is shot in. Both drawn from the project bible. */
+  :root {
+    --ground:  #EAE6DC;
+    --surface: #F5F2EA;
+    --sunken:  #E1DCCF;
+    --ink:     #14201F;
+    --muted:   #5E6B68;
+    --line:    #CFC8B8;
+    --tide:    #1F6570;
+    --indigo:  #2B3654;
+    --ember:   #B04A20;
+    --ember-soft: rgba(176, 74, 32, 0.12);
+    --stamp:   rgba(31, 101, 112, 0.30);
+
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+
+    --step--1: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+    --step-0:  clamp(0.95rem, 0.92rem + 0.16vw, 1.05rem);
+    --step-1:  clamp(1.18rem, 1.10rem + 0.38vw, 1.40rem);
+    --step-2:  clamp(1.55rem, 1.36rem + 0.90vw, 2.10rem);
+    --step-3:  clamp(2.10rem, 1.66rem + 2.10vw, 3.60rem);
+
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:  #0A1315;
+      --surface: #101D20;
+      --sunken:  #071012;
+      --ink:     #E9E4D8;
+      --muted:   #8FA09D;
+      --line:    #223436;
+      --tide:    #4FA3AE;
+      --indigo:  #7C88AE;
+      --ember:   #E0764A;
+      --ember-soft: rgba(224, 118, 74, 0.14);
+      --stamp:   rgba(79, 163, 174, 0.32);
+
+      color-scheme: dark;
+    }
+  }
+
+  /* ---- Base ---------------------------------------------------------- */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 66rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 4rem) clamp(1.1rem, 4vw, 2.5rem) 5rem;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  p { margin: 0; max-width: 62ch; }
+  a { color: var(--tide); }
+  a:focus-visible {
+    outline: 2px solid var(--ember);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .label {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---- Masthead ------------------------------------------------------ */
+  .masthead {
+    display: flex; flex-direction: column; gap: 1.4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .slugline {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: baseline;
+  }
+  .stamp {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tide);
+    border: 1px solid var(--stamp);
+    border-radius: 2px;
+    padding: 0.25rem 0.6rem;
+  }
+  h1 {
+    font-family: var(--mono);
+    font-size: var(--step-3);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .deck { font-size: var(--step-1); color: var(--muted); line-height: 1.45; }
+
+  /* ---- Sections ------------------------------------------------------ */
+  section { margin-top: clamp(2.8rem, 6vw, 4.5rem); }
+  .sec-head {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  h2 {
+    font-family: var(--mono);
+    font-size: var(--step-2);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---- Timeline hero ------------------------------------------------- */
+  .strip-scroll { overflow-x: auto; padding-bottom: 0.4rem; }
+  .strip {
+    display: flex; gap: 3px; min-width: 34rem;
+  }
+  .seg {
+    flex-grow: var(--d); flex-basis: 0;
+    display: flex; flex-direction: column; gap: 4px;
+    font-family: var(--mono);
+  }
+  .seg .bar {
+    height: 3.6rem;
+    border-radius: 2px;
+    background: var(--c);
+    position: relative;
+  }
+  .seg .bar::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 5px;
+    border-radius: 0 0 2px 2px;
+    background: var(--ink);
+    opacity: var(--lip, 0);
+  }
+  .seg .n {
+    font-size: var(--step--1);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem;
+    margin-top: 1.2rem;
+  }
+  .key { display: flex; align-items: center; gap: 0.5rem; }
+  .swatch { width: 1.1rem; height: 0.55rem; border-radius: 1px; background: var(--c); }
+  .swatch.lip { background: var(--ink); }
+
+  .readout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 1px;
+    margin-top: 2rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .cell { background: var(--surface); padding: 0.9rem 1rem; }
+  .cell .v {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    font-variant-numeric: tabular-nums;
+    display: block;
+    margin-top: 0.2rem;
+  }
+  .cell .v.acc { color: var(--ember); }
+
+  /* ---- Bible --------------------------------------------------------- */
+  .bible {
+    background: var(--sunken);
+    border-left: 3px solid var(--tide);
+    border-radius: 0 3px 3px 0;
+    padding: 1.5rem clamp(1rem, 3vw, 2rem);
+  }
+  .bible p {
+    font-size: var(--step-0);
+    line-height: 1.75;
+    max-width: 60ch;
+    margin-top: 0.9rem;
+  }
+  .bible .label { color: var(--tide); }
+
+  /* ---- Shot list ----------------------------------------------------- */
+  .shots { display: flex; flex-direction: column; gap: 1px; background: var(--line);
+           border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .shot {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0.35rem 1.1rem;
+    background: var(--surface);
+    padding: 1rem clamp(0.85rem, 2vw, 1.3rem);
+  }
+  @media (min-width: 46rem) {
+    .shot { grid-template-columns: 4.5rem 10.5rem 1fr; align-items: baseline; }
+  }
+  .shot .tc {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+  }
+  .shot .tc b { display: block; color: var(--ink); font-weight: 600; font-size: var(--step-0); }
+  .chip {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    color: var(--c);
+    white-space: nowrap;
+  }
+  .chip::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem; height: 0.5rem;
+    border-radius: 1px;
+    background: var(--c);
+    margin-right: 0.45rem;
+  }
+  .shot .act { font-size: var(--step-0); }
+  .shot .cam { color: var(--muted); font-size: var(--step--1); font-family: var(--mono); }
+  .shot.lip { background: var(--ember-soft); }
+
+  /* ---- Callouts ------------------------------------------------------ */
+  .callout {
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ember);
+    border-radius: 0 0 3px 3px;
+    background: var(--surface);
+    padding: clamp(1.1rem, 3vw, 1.8rem);
+    display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .callout h3 { font-family: var(--mono); font-size: var(--step-1); font-weight: 600; }
+
+  /* ---- Cost ---------------------------------------------------------- */
+  .eq {
+    font-family: var(--mono);
+    font-size: var(--step-1);
+    background: var(--sunken);
+    border-radius: 3px;
+    padding: 1.2rem clamp(0.9rem, 3vw, 1.6rem);
+    overflow-x: auto;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .pend {
+    color: var(--ember);
+    border-bottom: 1px dashed var(--ember);
+    padding-bottom: 1px;
+  }
+  .costgrid {
+    display: grid; gap: 1px; margin-top: 1.5rem;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: 3px; overflow: hidden;
+  }
+  .costrow {
+    background: var(--surface);
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    gap: 0.4rem 1rem; padding: 0.85rem clamp(0.85rem, 2vw, 1.3rem);
+  }
+  .costrow .r { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  /* ---- Footer -------------------------------------------------------- */
+  footer {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  code.cmd {
+    font-family: var(--mono);
+    font-size: var(--step-0);
+    background: var(--sunken);
+    padding: 0.7rem 1rem;
+    border-radius: 3px;
+    display: block;
+    overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="slugline">
+      <span class="label">cine-director / dry run</span>
+      <span class="stamp">0 credits spent</span>
+      <span class="stamp">fictional project</span>
+    </div>
+    <h1>Neon Tide</h1>
+    <p class="deck">
+      A 92-second music video, planned to the millisecond before a single frame
+      was generated. This is the whole pre-production package — the part that
+      costs nothing and decides everything.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">The edit, at a glance</span>
+      <h2>92.000 seconds</h2>
+      <p>
+        Twelve shots, drawn to scale. Width is duration; colour is shot type; the
+        pale underline marks the eight shots carrying lip sync. Four shots carry
+        none — and that decision, taken here for free, is worth 32 seconds off
+        the lipsync bill.
+      </p>
+    </div>
+
+    <div class="strip-scroll">
+      <div class="strip">
+        <div class="seg" style="--d:7.5;  --c:var(--tide)"><div class="bar"></div><span class="n">01</span></div>
+        <div class="seg" style="--d:7.5;  --c:var(--tide);   --lip:1"><div class="bar"></div><span class="n">02</span></div>
+        <div class="seg" style="--d:6.0;  --c:var(--ember);  --lip:1"><div class="bar"></div><span class="n">03</span></div>
+        <div class="seg" style="--d:7.0;  --c:var(--indigo)"><div class="bar"></div><span class="n">04</span></div>
+        <div class="seg" style="--d:8.0;  --c:var(--tide);   --lip:1"><div class="bar"></div><span class="n">05</span></div>
+        <div class="seg" style="--d:6.5;  --c:var(--ember);  --lip:1"><div class="bar"></div><span class="n">06</span></div>
+        <div class="seg" style="--d:7.5;  --c:var(--indigo)"><div class="bar"></div><span class="n">07</span></div>
+        <div class="seg" style="--d:8.0;  --c:var(--tide);   --lip:1"><div class="bar"></div><span class="n">08</span></div>
+        <div class="seg" style="--d:6.5;  --c:var(--ember);  --lip:1"><div class="bar"></div><span class="n">09</span></div>
+        <div class="seg" style="--d:7.5;  --c:var(--tide);   --lip:1"><div class="bar"></div><span class="n">10</span></div>
+        <div class="seg" style="--d:10.0; --c:var(--indigo)"><div class="bar"></div><span class="n">11</span></div>
+        <div class="seg" style="--d:10.0; --c:var(--ember);  --lip:1"><div class="bar"></div><span class="n">12</span></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="key"><span class="swatch" style="--c:var(--tide)"></span><span class="label">master performance</span></span>
+      <span class="key"><span class="swatch" style="--c:var(--ember)"></span><span class="label">close-up lipsync</span></span>
+      <span class="key"><span class="swatch" style="--c:var(--indigo)"></span><span class="label">sequence shot</span></span>
+      <span class="key"><span class="swatch lip"></span><span class="label">carries lip sync</span></span>
+    </div>
+
+    <div class="readout">
+      <div class="cell"><span class="label">Shots</span><span class="v num">12</span></div>
+      <div class="cell"><span class="label">Video seconds</span><span class="v num">92.000</span></div>
+      <div class="cell"><span class="label">Lipsync seconds</span><span class="v num acc">60.000</span></div>
+      <div class="cell"><span class="label">Reference images</span><span class="v num">12</span></div>
+      <div class="cell"><span class="label">Credits spent</span><span class="v num">0</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Frozen, pasted whole into every prompt</span>
+      <h2>The character bible</h2>
+      <p>
+        The hardest problem in generative video is not image quality. It is the
+        performer becoming a different person between shot 3 and shot 4. This
+        block is the fix: canonical, immutable, never paraphrased to shorten a
+        prompt.
+      </p>
+    </div>
+    <div class="bible">
+      <span class="label">Canonical block — do not edit</span>
+      <p>
+        A performer in their early thirties, light brown skin, close-cropped
+        black hair, a short full beard kept sharp at the jaw, thick dark
+        eyebrows, a narrow face with high cheekbones. Thin round wire-frame
+        glasses with a faint amber tint, worn in every shot. A single small
+        silver hoop in the left ear, nothing else. Wardrobe: an oversized
+        raw-linen shirt in bone white, sleeves rolled to the forearm, worn open
+        over a plain black tee, and dark indigo trousers. Light: the last twenty
+        minutes of dusk, sun already below the horizon, sky graded from deep teal
+        overhead to a narrow band of burnt orange at the waterline; the performer
+        lit from the front left by that residual warm light, with cool blue fill
+        from the sky behind. Palette: teal, bone white, burnt orange, indigo.
+        Posture: still and grounded, weight on the back foot, chin level,
+        movement economical — small deliberate gestures rather than large ones.
+        No hat, no sunglasses, no visible tattoos, no additional jewelry, no
+        logos or text on the clothing, no other people in frame. Shot on
+        anamorphic glass, shallow depth of field, gentle halation on the
+        highlights, fine 35mm grain.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">One action per shot. Two actions means two shots.</span>
+      <h2>The decupage</h2>
+      <p>
+        The single source of truth for time. Every ffmpeg timestamp in the audio
+        plan is derived from this table — never retyped. Shots on an ember ground
+        carry lip sync.
+      </p>
+    </div>
+
+    <div class="shots">
+      <div class="shot"><span class="tc"><b>01</b>7.500 s</span><span class="chip" style="--c:var(--tide)">master&#8209;performance</span><span><span class="act">Stands still, looking out to sea.</span><br><span class="cam">Wide · locked, slight drift left</span></span></div>
+      <div class="shot lip"><span class="tc"><b>02</b>7.500 s</span><span class="chip" style="--c:var(--tide)">master&#8209;performance</span><span><span class="act">Sings to camera, weight settling on the back foot.</span><br><span class="cam">Medium · locked, slow push in</span></span></div>
+      <div class="shot lip"><span class="tc"><b>03</b>6.000 s</span><span class="chip" style="--c:var(--ember)">close&#8209;up&#8209;lipsync</span><span><span class="act">Sings to camera, contained, small head movement. <strong>Pilot shot.</strong></span><br><span class="cam">Close · locked</span></span></div>
+      <div class="shot"><span class="tc"><b>04</b>7.000 s</span><span class="chip" style="--c:var(--indigo)">sequence&#8209;shot</span><span><span class="act">Walks three steps along the waterline.</span><br><span class="cam">Wide · slow lateral tracking, L→R</span></span></div>
+      <div class="shot lip"><span class="tc"><b>05</b>8.000 s</span><span class="chip" style="--c:var(--tide)">master&#8209;performance</span><span><span class="act">Sings, one hand rising to chest height.</span><br><span class="cam">Medium · locked, slight drift right</span></span></div>
+      <div class="shot lip"><span class="tc"><b>06</b>6.500 s</span><span class="chip" style="--c:var(--ember)">close&#8209;up&#8209;lipsync</span><span><span class="act">Sings, gaze lowering on the last beat.</span><br><span class="cam">Close · three-quarter · locked</span></span></div>
+      <div class="shot"><span class="tc"><b>07</b>7.500 s</span><span class="chip" style="--c:var(--indigo)">sequence&#8209;shot</span><span><span class="act">No performer. Water only.</span><br><span class="cam">Wide low · slow dolly-in to horizon</span></span></div>
+      <div class="shot lip"><span class="tc"><b>08</b>8.000 s</span><span class="chip" style="--c:var(--tide)">master&#8209;performance</span><span><span class="act">Sings, both arms loose at the sides.</span><br><span class="cam">Medium · frontal · slow push in</span></span></div>
+      <div class="shot lip"><span class="tc"><b>09</b>6.500 s</span><span class="chip" style="--c:var(--ember)">close&#8209;up&#8209;lipsync</span><span><span class="act">Sings, chin lifting slightly.</span><br><span class="cam">Close · frontal · locked</span></span></div>
+      <div class="shot lip"><span class="tc"><b>10</b>7.500 s</span><span class="chip" style="--c:var(--tide)">master&#8209;performance</span><span><span class="act">Sings, half turn toward the water.</span><br><span class="cam">Medium wide · locked, slight drift left</span></span></div>
+      <div class="shot"><span class="tc"><b>11</b>10.000 s</span><span class="chip" style="--c:var(--indigo)">sequence&#8209;shot</span><span><span class="act">Stands still as the camera rises.</span><br><span class="cam">Wide · slow crane rise · flagged risk</span></span></div>
+      <div class="shot lip"><span class="tc"><b>12</b>10.000 s</span><span class="chip" style="--c:var(--ember)">close&#8209;up&#8209;lipsync</span><span><span class="act">Sings the final line, then holds still.</span><br><span class="cam">Close · frontal · imperceptible push in</span></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Carried into production, not hidden</span>
+      <h2>The flagged risk</h2>
+    </div>
+    <div class="callout">
+      <h3>Shot 11 runs longer than anything validated</h3>
+      <p>
+        It is a 10-second crane rise. No take that long has held its geometry on
+        this pipeline, and the safe duration is still an open question. So the
+        shot stays in the decupage at full length — <em>and gets a flag</em>,
+        rather than being quietly shortened to look safe.
+      </p>
+      <p>
+        If the pilot holds at 10.000 s, it ships as written. If it does not, it
+        splits into two 5-second takes cut on the camera's own movement. The
+        audio does not move. No other shot changes. Both outcomes leave the film
+        at 92.000 seconds — which is exactly why the risk can be carried instead
+        of blocking the lock.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">The honest form of an estimate</span>
+      <h2>What it costs</h2>
+      <p>
+        The quantities are exact. The prices are named variables, because
+        generative-video pricing changes without notice and a number frozen into
+        a document is a number that will be wrong by the time you read it.
+        Substitute today's prices and the estimate is correct today.
+      </p>
+    </div>
+
+    <div class="eq">
+      budget = 18 &times; <span class="pend">P_img</span> &nbsp;+&nbsp; 138 &times; <span class="pend">P_vid</span> &nbsp;+&nbsp; 90 &times; <span class="pend">P_lip</span>
+    </div>
+
+    <div class="costgrid">
+      <div class="costrow"><span>Reference images</span><span class="r">12 &rarr; 18 with margin</span></div>
+      <div class="costrow"><span>Video generation</span><span class="r">92.000 s &rarr; 138.000 s</span></div>
+      <div class="costrow"><span>Lip sync</span><span class="r">60.000 s &rarr; 90.000 s</span></div>
+      <div class="costrow"><span>Regeneration margin</span><span class="r">&times;1.5 — the pilot, twice, plus rejects</span></div>
+    </div>
+
+    <p style="margin-top:1.5rem">
+      Fill in three numbers and the top line is your budget. Every
+      <span class="pend">variable</span> above is a question with an answer you
+      can look up — not a guess dressed as a figure.
+    </p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="label">Then, and only then</span>
+      <h2>Generate one shot</h2>
+    </div>
+    <div class="callout">
+      <h3>Shot 03 goes first, alone</h3>
+      <p>
+        It is the most expensive shot to be wrong about: the first close-up with
+        lip sync, framed against moving water, on a performer with a full beard.
+        It carries every unresolved question in the package at once — and it is
+        six seconds long.
+      </p>
+      <p>
+        If shot 03 passes, the batch is safe. If it fails, it fails for the price
+        of one shot instead of twelve. Generating the batch before the pilot is
+        approved is how a systematic error becomes a systematic error multiplied
+        by twelve.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="label">Produced by cine-director in dry-run mode</span>
+    <p>
+      Neon Tide is fictional, invented so the package could be published whole.
+      The method, the discipline, and every open question in it are real — taken
+      from a pipeline validated on an actual music video.
+    </p>
+    <code class="cmd">npx skills add socramsea/cine-director</code>
+    <p class="label">
+      <a href="https://github.com/socramsea/cine-director">github.com/socramsea/cine-director</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/socramsea/cine-director/tree/main/examples">all examples</a>
+      &nbsp;·&nbsp; Apache 2.0 &nbsp;·&nbsp; Forja Criativa
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
