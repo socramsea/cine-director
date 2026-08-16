@@ -72,6 +72,7 @@ escrever o prompt do plano correspondente.
 | `shots/master-performance.md` | Plano de performance do artista (corpo inteiro/médio) |
 | `shots/close-up-lipsync.md` | Close com sincronia labial — o plano mais crítico |
 | `shots/plano-sequencia.md` | Movimento contínuo de câmera em cena generativa |
+| `shots/showcase-imovel.md` | Showcase de imóvel/arquitetura — sem personagem, o espaço é o produto |
 
 ## O que este skill NÃO faz
 
