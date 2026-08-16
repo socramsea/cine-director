@@ -33,6 +33,22 @@ budget, that every file referenced by a document actually exists, and that every
 shot card is reachable from `SKILL.md`. CI runs the same script plus a real
 install through the `skills` CLI.
 
+It also verifies the worked examples: shot durations must sum to the declared
+master duration, every shot type must name a real card, and no cost row may
+state a price without a `PENDING` marker. If you add a card and rename an old
+one, the examples that referenced it fail the build — which is the point.
+
+## Adding or editing an example
+
+Examples in `examples/` are treated as executable documentation, not prose. If
+you change a shot duration you must change the master duration to match, or the
+build fails. Keep the shot table's column headers as they are — `Dur. (s)` and
+`Shot type (card)` are what the validator keys on.
+
+Invented projects are fine and preferred; label them fictional at the top, as
+the existing two do. Invented *numbers* are not: prices stay as named variables
+with the arithmetic worked out around them.
+
 ## Adding a shot card
 
 Copy the structure of an existing card in `references/shots/`. Every card needs:

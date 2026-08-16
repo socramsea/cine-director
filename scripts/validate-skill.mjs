@@ -250,7 +250,122 @@ if (existsSync(shotsDir) && existsSync(skillPath)) {
 }
 
 // ---------------------------------------------------------------------------
-// 4. Unfilled template placeholders that would ship to a user
+// 4. Examples are executable documentation, not prose
+//
+// A worked example that drifts out of sync with its own arithmetic is worse
+// than no example: it teaches the method wrong. These checks recompute what the
+// examples claim, so an edit that breaks the sums fails the build.
+// ---------------------------------------------------------------------------
+
+/** Parse every markdown table in a document into { header, rows }. */
+function parseTables(text) {
+  const tables = [];
+  let current = null;
+  for (const line of text.split('\n')) {
+    const t = line.trim();
+    if (t.startsWith('|') && t.endsWith('|') && t.length > 1) {
+      const cells = t.slice(1, -1).split('|').map((c) => c.trim());
+      if (cells.every((c) => /^:?-{2,}:?$/.test(c))) continue; // separator row
+      if (!current) current = { header: cells, rows: [] };
+      else current.rows.push(cells);
+    } else if (current) {
+      tables.push(current);
+      current = null;
+    }
+  }
+  if (current) tables.push(current);
+  return tables;
+}
+
+const examplesDir = join(ROOT, 'examples');
+if (existsSync(examplesDir)) {
+  const knownCards = existsSync(shotsDir)
+    ? readdirSync(shotsDir)
+        .filter((f) => f.endsWith('.md'))
+        .map((f) => f.replace(/\.md$/, ''))
+    : [];
+
+  const exampleFiles = walk(examplesDir);
+  let decupagesChecked = 0;
+
+  for (const file of exampleFiles) {
+    const rel = relative(ROOT, file);
+    const text = readFileSync(file, 'utf8');
+
+    // 4a. Shot durations must sum to the declared master duration.
+    const declared = text.match(/\*\*Master duration:\*\*\s*([\d.]+)\s*s/);
+    const shotTable = parseTables(text).find(
+      (t) =>
+        t.header.some((h) => /^Dur\./.test(h)) &&
+        t.header.some((h) => /^Shot type/.test(h))
+    );
+
+    if (shotTable && !declared) {
+      fail(
+        `${rel}: has a shot table but no "**Master duration:** <n> s" line, so ` +
+          `its durations cannot be checked against anything.`
+      );
+    }
+
+    if (shotTable && declared) {
+      decupagesChecked++;
+      const durIdx = shotTable.header.findIndex((h) => /^Dur\./.test(h));
+      const typeIdx = shotTable.header.findIndex((h) => /^Shot type/.test(h));
+
+      let sum = 0;
+      for (const row of shotTable.rows) {
+        const n = Number.parseFloat(row[durIdx]);
+        if (Number.isNaN(n)) {
+          fail(`${rel}: shot row "${row[0]}" has a non-numeric duration.`);
+          continue;
+        }
+        sum += n;
+
+        const card = (row[typeIdx] ?? '').replace(/`/g, '').trim();
+        if (card && !knownCards.includes(card)) {
+          fail(
+            `${rel}: shot ${row[0]} names shot type "${card}", which is not a ` +
+              `card in references/shots/. Known cards: ${knownCards.join(', ')}`
+          );
+        }
+      }
+
+      const target = Number.parseFloat(declared[1]);
+      if (Math.abs(sum - target) > 0.001) {
+        fail(
+          `${rel}: shot durations sum to ${sum.toFixed(3)} s but the master ` +
+            `duration is ${target.toFixed(3)} s. The decupage is the single ` +
+            `source of truth for time — it has to add up.`
+        );
+      } else {
+        ok(`${rel}: ${shotTable.rows.length} shots sum to ${target.toFixed(3)} s`);
+      }
+    }
+
+    // 4b. The PENDING rule, mechanically enforced: no stated price without a
+    // source. An example is the most likely place for an invented number to
+    // creep in, because a concrete figure reads as more helpful.
+    for (const [i, line] of text.split('\n').entries()) {
+      if (!line.trim().startsWith('|')) continue;
+      if (!/(?:R\$|US\$|[$€£¥])\s?\d|\d[.,]\d{2}\s*(?:USD|BRL|EUR|GBP)/.test(line)) continue;
+      if (/PENDING|PENDENTE/.test(line)) continue;
+      fail(
+        `${rel}:${i + 1}: states a price with no PENDING marker and no source. ` +
+          `Generative-video pricing changes without notice — a committed figure ` +
+          `is a figure that will be wrong. See the PENDING rule.`
+      );
+    }
+  }
+
+  if (decupagesChecked > 0) {
+    ok(`${decupagesChecked} example decupage(s) verified against their own totals`);
+  } else {
+    warn('examples/ exists but contains no verifiable decupage.');
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 5. Unfilled template placeholders that would ship to a user
 // ---------------------------------------------------------------------------
 for (const file of mdFiles) {
   const rel = relative(ROOT, file);

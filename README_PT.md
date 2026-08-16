@@ -78,6 +78,26 @@ Descreva o que você quer. O skill ativa sozinho — não precisa de comando.
 O dry-run não custa nada e termina com o pacote salvo em arquivos. Só então o
 skill pergunta se você quer gerar.
 
+## Veja antes de instalar
+
+Dois pacotes completos estão publicados em [`examples/`](./examples/):
+
+| Exemplo | O que mostra |
+|---|---|
+| [Neon Tide](./examples/music-video-neon-tide/) | Clipe musical: personagem recorrente, 12 planos, lipsync por plano, bíblia de personagem, plano de cortes ffmpeg |
+| [Vila Mar 402](./examples/property-showcase-vila-mar/) | Showcase de imóvel: sem personagem, bíblia de espaço, 6 planos verticais, geometria como protagonista |
+
+Os dois projetos são fictícios; o método não. Comece por um
+[brief](./examples/music-video-neon-tide/00-brief.md) para ver como as decisões
+são tomadas, ou vá direto a uma [estimativa de
+custo](./examples/music-video-neon-tide/05-cost-estimate.md) para ver como a
+aritmética é apresentada sem inventar preço.
+
+Esses exemplos são **verificados no CI**: o validador recalcula cada tabela de
+planos contra a duração declarada do master, confere se cada plano cita um card
+real e derruba o build em qualquer preço afirmado sem fonte. Documentação que
+não apodrece em silêncio.
+
 ## Requisitos
 
 | Para | Você precisa de |

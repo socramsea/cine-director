@@ -3,6 +3,25 @@
 All notable changes to this project are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.4.0] — 2026-08-15
+
+### Added
+
+- `examples/` — two complete dry-run packages, published in full so the output
+  can be read before installing:
+  - **music-video-neon-tide** — recurring character, 12 shots, 8 with lipsync:
+    brief, character bible, decupage, per-shot prompts, ffmpeg audio-cut plan
+    (with a generation script and a verification step), cost estimate.
+  - **property-showcase-vila-mar** — no character: brief, space bible,
+    decupage, per-shot prompts, cost estimate. Documents the line a property
+    showcase must not cross.
+  Both projects are fictional; every `PENDING` marker is a real open question.
+- The examples are **verified in CI**. `scripts/validate-skill.mjs` now
+  recomputes each shot table against its declared master duration, checks that
+  every shot type names a real card in `references/shots/`, and fails on any
+  cost row stating a price without a `PENDING` marker — the PENDING rule
+  enforced mechanically rather than by review.
+
 ## [0.3.0] — 2026-08-15
 
 ### Fixed

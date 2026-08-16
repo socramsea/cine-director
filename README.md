@@ -79,6 +79,26 @@ required.
 The dry-run costs nothing and ends with the package saved to files. Only then
 does the skill ask whether you want to generate.
 
+## See it before you install
+
+Two complete packages are published in [`examples/`](./examples/):
+
+| Example | What it shows |
+|---|---|
+| [Neon Tide](./examples/music-video-neon-tide/) | Music video: recurring character, 12 shots, per-shot lipsync, character bible, ffmpeg cut plan |
+| [Vila Mar 402](./examples/property-showcase-vila-mar/) | Property showcase: no character, space bible, 6 vertical shots, geometry as the subject |
+
+Both projects are fictional; the method is not. Start with a
+[brief](./examples/music-video-neon-tide/00-brief.md) to see how the decisions
+get made, or jump to a [cost
+estimate](./examples/music-video-neon-tide/05-cost-estimate.md) to see how the
+arithmetic is presented without inventing a price.
+
+These examples are **verified in CI**: the validator recomputes every shot table
+against its declared master duration, checks that each shot names a real card,
+and fails the build on any price stated without a source. Documentation that
+cannot go stale silently.
+
 ## Requirements
 
 | For | You need |
