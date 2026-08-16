@@ -52,3 +52,28 @@ bíblia no meio da produção. Mudou a bíblia = novo projeto visual.
   ombros caídos") → o modelo muda o rosto para expressar a emoção.
 - Duas ações no mesmo plano → o modelo sacrifica a identidade para dar
   conta do movimento.
+
+---
+
+## Projetos sem personagem: bíblia de espaço
+
+Nem todo projeto tem personagem (imóveis, produtos, paisagens). Nesses
+casos NÃO force os 7 campos — use a **bíblia de espaço**, com 5 campos:
+
+1. **Identidade do espaço/objeto** — o que é, materiais, cores dominantes.
+   Para imóvel real: a foto-fonte É a identidade; a bíblia descreve o que
+   a foto mostra, nunca o que se gostaria que mostrasse.
+2. **Luz canônica** — hora do dia, temperatura, direção. UMA condição de
+   luz para o projeto inteiro, mesmo que as fotos-fonte variem — é o que
+   faz cômodos diferentes parecerem o mesmo imóvel.
+3. **Paleta congelada** — 3–4 cores que amarram todos os planos.
+4. **Assinatura de câmera** — lente/ângulo/altura padrão do projeto
+   (ex.: "wide, altura do olho, sempre nivelada" — horizonte torto em
+   imóvel parece defeito estrutural).
+5. **Proibições explícitas** — o que o modelo tende a adicionar e não
+   pode (ex.: "no people, no pets, no text, no added furniture").
+
+Mesmas regras da bíblia de personagem: bloco canônico CONGELADO, colado
+íntegro em todo prompt, sem paráfrase, sem "melhorias" no meio da produção.
+
+Card correspondente: `shots/showcase-imovel.md`.
